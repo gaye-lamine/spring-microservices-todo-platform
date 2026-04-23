@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-service
+  labels:
+    app: todo-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: todo-service
+  template:
+    metadata:
+      labels:
+        app: todo-service
+    spec:
+      containers:
+        - name: todo-service
+          image: your-docker-repo/todo-service:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "prod"
+            - name: REDIS_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: prod-secrets
+                  key: redis-host
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: prod-secrets
+                  key: database-url
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "1"
+      imagePullSecrets:
+        - name: regcred

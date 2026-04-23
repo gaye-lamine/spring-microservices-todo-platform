@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: notification-service
+
+  kafka:
+    bootstrap-servers: kafka:9092
+    consumer:
+      group-id: notification-group
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      properties:
+        key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+        value.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+  data:
+    redis:
+      host: redis
+      port: 6379
+
+  mail:
+    host: smtp.example.com
+    port: 587
+    username: your-email@example.com
+    password: your-email-password
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.ssl.trust: smtp.example.com
+
+email:
+  service:
+    url: http://mock-email-service:8080
+
+logging:
+  level:
+    root: INFO
+    com.example.notification: DEBUG
+
+server:
+  port: 8082
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    health:
+      mail:
+        enabled: false
+  metrics:
+    tags:
+      enabled: true

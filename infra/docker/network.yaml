@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  todo-service:
+    networks:
+      - todo-network
+  user-service:
+    networks:
+      - todo-network
+  api-gateway:
+    networks:
+      - todo-network
+  notification-service:
+    networks:
+      - todo-network
+
+networks:
+  todo-network:
+    driver: bridge

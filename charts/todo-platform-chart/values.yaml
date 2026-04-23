@@ -1,0 +1,28 @@
+default:
+  image: "todo-platform:latest"
+  replicaCount: 1
+
+  service:
+    enabled: true
+    name: "todo-service"
+    type: ClusterIP
+    port: 8080
+    targetPort: 8080
+    annotations: {}
+
+  ingress:
+    enabled: false
+    name: ""
+    path: /
+    pathType: ImplementationSpecific
+    hosts:
+      - host: chart-example.local
+        paths:
+          - /
+    tls: [] 
+
+  resources: {}
+  
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}

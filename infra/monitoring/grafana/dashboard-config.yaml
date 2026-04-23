@@ -1,0 +1,40 @@
+apiVersion: 1
+providers:
+  - name: "Todo Dashboard"
+    type: "dashboard"
+    uid: "todo-dashboard"
+    title: "Todo Management Dashboard"
+    panels:
+      - type: "graph"
+        title: "Todos Overview"
+        targets:
+          - target: "sum(rate(todo_created_total[5m]))"
+            legend: "Created Todos"
+          - target: "sum(rate(todo_completed_total[5m]))"
+            legend: "Completed Todos"
+        xaxis:
+          mode: "time"
+        yaxes:
+          - format: "short"
+          - format: "short"
+      - type: "table"
+        title: "Recent Todos"
+        targets:
+          - target: "todos_recent"
+        columns:
+          - text: "Title"
+            value: "title"
+          - text: "Status"
+            value: "status"
+          - text: "User"
+            value: "user"
+      - type: "singlestat"
+        title: "Total Todos"
+        targets:
+          - target: "count(todo_total)"
+        valueName: "current"
+        thresholds: "0,10,20"
+        colors:
+          - "green"
+          - "yellow"
+          - "red"

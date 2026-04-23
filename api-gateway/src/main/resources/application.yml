@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: api-gateway
+  redis:
+    host: redis
+    port: 6379
+  main:
+    allow-bean-definition-overriding: true
+
+server:
+  port: 9090
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.gateway: DEBUG
+    com.example.gateway: DEBUG
