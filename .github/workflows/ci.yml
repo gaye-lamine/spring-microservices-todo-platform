@@ -26,23 +26,6 @@ jobs:
       - name: Build with Maven
         run: mvn clean install -DskipTests
 
-      - name: Build Docker images
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && secrets.DOCKER_USERNAME != ''
-        run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/todo-service:latest ./todo-service
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service:latest ./user-service
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/api-gateway:latest ./api-gateway
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/notification-service:latest ./notification-service
-
-      - name: Push Docker images
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && secrets.DOCKER_USERNAME != ''
-        run: |
-          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-          docker push ${{ secrets.DOCKER_USERNAME }}/todo-service:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/user-service:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/api-gateway:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/notification-service:latest
-
       - name: Notify build success
         if: success()
         run: echo "✅ CI Pipeline completed successfully!"
