@@ -6,7 +6,7 @@
 
 A production-ready, scalable Todo management platform built with microservices architecture, implementing Domain-Driven Design (DDD) principles and event-driven communication patterns.
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Architecture Overview](#architecture-overview)
 - [Key Features](#key-features)
@@ -21,7 +21,7 @@ A production-ready, scalable Todo management platform built with microservices a
 
 ---
 
-## 🏗️ Architecture Overview
+## Architecture Overview
 
 The platform follows a microservices architecture with the following components:
 
@@ -60,31 +60,31 @@ The platform follows a microservices architecture with the following components:
 
 ---
 
-## ✨ Key Features
+## Key Features
 
 ### Core Functionality
-- ✅ **User Management**: Registration, authentication, profile management
-- ✅ **Todo Management**: Full CRUD operations with status tracking (PENDING, IN_PROGRESS, DONE)
-- ✅ **Event-Driven Notifications**: Asynchronous notifications via Kafka
-- ✅ **JWT Authentication**: Secure token-based authentication with HS512 algorithm
+- User Management: Registration, authentication, profile management
+- Todo Management: Full CRUD operations with status tracking (PENDING, IN_PROGRESS, DONE)
+- Event-Driven Notifications: Asynchronous notifications via Kafka
+- JWT Authentication: Secure token-based authentication with HS512 algorithm
 
 ### Architecture Patterns
-- 🏛️ **Domain-Driven Design (DDD)**: Clear separation of domain, application, infrastructure, and presentation layers
-- 🔄 **Event-Driven Architecture**: Kafka-based event streaming for inter-service communication
-- 🛡️ **API Gateway Pattern**: Centralized entry point with authentication and routing
-- 📦 **CQRS Ready**: Separation of command and query responsibilities
+- Domain-Driven Design (DDD): Clear separation of domain, application, infrastructure, and presentation layers
+- Event-Driven Architecture: Kafka-based event streaming for inter-service communication
+- API Gateway Pattern: Centralized entry point with authentication and routing
+- CQRS Ready: Separation of command and query responsibilities
 
 ### Technical Features
-- 🔐 **Security**: BCrypt password hashing, JWT token validation
-- 📊 **Monitoring**: Prometheus metrics, Grafana dashboards
-- 🐳 **Containerization**: Docker and Docker Compose support
-- ☸️ **Kubernetes Ready**: Complete K8s manifests with HPA
-- 📝 **API Documentation**: OpenAPI/Swagger specifications
-- 🔍 **Observability**: Structured logging with strategic log points
+- Security: BCrypt password hashing, JWT token validation
+- Monitoring: Prometheus metrics, Grafana dashboards
+- Containerization: Docker and Docker Compose support
+- Kubernetes Ready: Complete K8s manifests with HPA
+- API Documentation: OpenAPI/Swagger specifications
+- Observability: Structured logging with strategic log points
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 ### Backend
 - **Java 17** - LTS version with modern language features
@@ -115,7 +115,7 @@ The platform follows a microservices architecture with the following components:
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 todo-platform/
@@ -184,7 +184,7 @@ todo-platform/
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -229,7 +229,7 @@ todo-platform/
 
 ---
 
-## 📚 API Documentation
+## API Documentation
 
 ### Authentication Flow
 
@@ -303,7 +303,7 @@ todo-platform/
 
 ---
 
-## 🔐 Security
+## Security
 
 ### JWT Authentication
 
@@ -340,7 +340,7 @@ The API Gateway adds the following security headers:
 
 ---
 
-## 📊 Monitoring & Observability
+## Monitoring & Observability
 
 ### Prometheus Metrics
 
@@ -376,7 +376,7 @@ Strategic logging is implemented with prefixes for easy filtering:
 
 ---
 
-## ☸️ Deployment
+## Deployment
 
 ### Docker Compose (Development)
 
@@ -444,7 +444,7 @@ helm uninstall todo-platform
 
 ---
 
-## 💻 Development
+## Development
 
 ### Building from Source
 
@@ -509,7 +509,7 @@ mvn verify
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
