@@ -1,3 +1,5 @@
+package com.example.user.application;
+
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 

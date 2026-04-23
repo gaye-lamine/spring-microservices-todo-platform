@@ -1,3 +1,8 @@
+package com.example.todo.domain;
+
+import com.example.todo.domain.entities.Todo;
+import com.example.todo.domain.entities.TodoStatus;
+import com.example.todo.domain.valueobjects.Title;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -29,26 +34,26 @@ public class TodoDomainTests {
 
         assertEquals(expectedTitle, todo.getTitle().getValue());
         assertEquals("USER_ID", todo.getUserId());
-        assertEquals(Todo.Status.TODO, todo.getStatus());
+        assertEquals(TodoStatus.PENDING, todo.getStatus());
     }
 
     @Test
     public void testTodoStatusChange() {
         todo = new Todo(title, "USER_ID");
         
-        todo.changeStatus(Todo.Status.IN_PROGRESS);
+        todo.changeStatus(TodoStatus.IN_PROGRESS);
 
-        assertEquals(Todo.Status.IN_PROGRESS, todo.getStatus());
+        assertEquals(TodoStatus.IN_PROGRESS, todo.getStatus());
     }
 
     @Test
     public void testTodoModificationNotAllowedWhenDone() {
         todo = new Todo(title, "USER_ID");
-        todo.changeStatus(Todo.Status.DONE);
+        todo.changeStatus(TodoStatus.DONE);
 
         Exception exception = null;
         try {
-            todo.changeStatus(Todo.Status.TODO);
+            todo.changeStatus(TodoStatus.PENDING);
         } catch (Exception e) {
             exception = e;
         }
