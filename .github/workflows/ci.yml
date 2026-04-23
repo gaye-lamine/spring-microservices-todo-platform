@@ -14,41 +14,46 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
 
       - name: Build with Maven
-        run: mvn clean install
+        run: mvn clean install -DskipTests
 
       - name: Run tests
         run: mvn test
 
       - name: Build Docker images
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
-          docker build -t todo-service ./todo-service
-          docker build -t user-service ./user-service
-          docker build -t api-gateway ./api-gateway
-          docker build -t notification-service ./notification-service
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/todo-service:latest ./todo-service
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service:latest ./user-service
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/api-gateway:latest ./api-gateway
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/notification-service:latest ./notification-service
 
       - name: Push Docker images
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-          docker push todo-service
-          docker push user-service
-          docker push api-gateway
-          docker push notification-service
+          docker push ${{ secrets.DOCKER_USERNAME }}/todo-service:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/user-service:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/api-gateway:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/notification-service:latest
 
       - name: Deploy to Kubernetes
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
-          kubectl apply -f k8s/namespace.yaml
-          kubectl apply -f k8s/deployments/todo-service-deployment.yaml
-          kubectl apply -f k8s/deployments/user-service-deployment.yaml
-          kubectl apply -f k8s/deployments/api-gateway-deployment.yaml
-          kubectl apply -f k8s/deployments/notification-service-deployment.yaml
+          # This step requires kubectl to be configured with cluster credentials
+          # kubectl apply -f k8s/namespace.yaml
+          # kubectl apply -f k8s/deployments/
+          echo "Kubernetes deployment skipped - configure kubectl credentials first"
 
       - name: Notify deployment success
-        run: echo "Deployment to Kubernetes successful!"
+        if: success()
+        run: echo "CI Pipeline completed successfully!"
